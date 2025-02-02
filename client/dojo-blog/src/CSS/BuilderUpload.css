@@ -1,0 +1,93 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* White background */
+    color: #333; /* Dark color for readability */
+    padding: 20px;
+}
+
+/* Upload Container */
+.upload-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f8f8ff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.upload-container h2 {
+    text-align: center;
+    color: #0F0E47;
+    margin-bottom: 20px;
+}
+
+/* Form */
+.upload-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+.upload-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0F0E47;
+    margin-bottom: 5px;
+}
+
+/* Input Fields */
+.upload-form input,
+.upload-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #8686AC;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Disabled Email Input */
+.upload-form input:disabled {
+    background-color: #e9e9f5;
+    cursor: not-allowed;
+}
+
+/* Button */
+.upload-button {
+    background-color: #505081;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    text-align: center;
+}
+
+.upload-button:hover {
+    background-color: #8686AC;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .upload-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .upload-button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}

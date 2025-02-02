@@ -1,0 +1,99 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* White background */
+    color: #272757; /* Default text color */
+    padding: 20px;
+}
+
+/* Container */
+.buildings-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.buildings-container h2 {
+    font-size: 26px;
+    color: #272757;
+    margin-bottom: 20px;
+}
+
+/* Buildings List */
+.buildings-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.building-card {
+    background-color: #f8f8ff;
+    border: 1px solid #8686AC;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Text Styling */
+.building-card p {
+    font-size: 16px;
+    margin: 8px 0;
+    color: #000000;  /* Dark color for better visibility */
+    font-weight: bold;
+}
+
+.building-card strong {
+    color: #0F0E47; /* Slightly different dark blue for headings */
+}
+
+/* Image Styling */
+.building-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* Verify Button */
+.verify-button {
+    background-color: #505081;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    align-self: flex-end; /* Moves the button to the right */
+    margin-top: 15px; /* Adds spacing below the image */
+}
+
+.verify-button:hover {
+    background-color: #8686AC;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .building-card {
+        padding: 15px;
+    }
+
+    .verify-button {
+        padding: 8px 16px;
+        font-size: 12px;
+        align-self: center; /* Centers button on smaller screens */
+    }
+}
+
