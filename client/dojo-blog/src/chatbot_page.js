@@ -1,10 +1,11 @@
-// ChatBotPage.js
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import "./CSS/chatbot_page.css"
 
 const ChatBotPage = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get building ID from URL params
   const [building, setBuilding] = useState(null);
   const [query, setQuery] = useState("");
   const [responses, setResponses] = useState([]);
@@ -27,7 +28,12 @@ const ChatBotPage = () => {
     if (!query.trim()) return;
 
     try {
-      const response = await axios.post("http://localhost:4000/api/ai-chatbot", { query });
+      // Pass both the query and building id to the AI chatbot API
+      const response = await axios.post("http://localhost:4000/api/ai-chatbot", {
+        query,
+        buildingId: id, // Send building ID as part of the request
+      });
+      
       console.log(response);
       setResponses((prev) => [...prev, { question: query, answer: response.data.reply }]);
       setQuery(""); // Clear the input after submission
@@ -78,3 +84,4 @@ const ChatBotPage = () => {
 };
 
 export default ChatBotPage;
+

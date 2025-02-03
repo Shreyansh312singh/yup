@@ -1,0 +1,144 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* Light background color */
+    color: #333; /* Darker text color for readability */
+    padding: 20px;
+  }
+  
+  .chatbot-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  
+  .building-details {
+    flex: 1;
+    background-color: #ffffff; /* White background for the content area */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #505081; /* Soft purple for title */
+    margin-bottom: 20px;
+  }
+  
+  .building-details img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .building-details p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  strong {
+    color: #505081; /* Use the same purple for strong text */
+  }
+  
+  .ai-chatbot {
+    flex: 0 0 400px; /* Fixed width for the chatbot */
+    background-color: #272757; /* Dark purple background for chatbot */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-height: 80vh; /* Ensure the chatbot doesn't overflow vertically */
+    overflow-y: auto; /* Enable scrolling if chat gets too long */
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .chat-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .chat-input {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid #8686AC;
+    border-radius: 5px;
+    background-color: #0f0E47; /* Darker background for input */
+    color: #fff;
+    font-size: 1rem;
+  }
+  
+  .send-btn {
+    padding: 12px 20px;
+    background-color: #8686AC; /* Lighter purple for button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .send-btn:hover {
+    background-color: #505081; /* Darker purple on hover */
+  }
+  
+  .chat-responses {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .chat-bubble {
+    background-color: #505081;
+    padding: 15px;
+    border-radius: 8px;
+    max-width: 80%;
+    color: #fff;
+  }
+  
+  .chat-bubble p {
+    margin: 5px 0;
+  }
+  
+  .chat-bubble strong {
+    color: #8686AC; /* Lighter color for the role label */
+  }
+  
+  .chat-bubble p:nth-child(1) {
+    font-weight: bold;
+    color: #fff; /* User question in white */
+  }
+  
+  .chat-bubble p:nth-child(2) {
+    color: #fff; /* AI response in white */
+  }
+  
+  .chat-bubble.ai {
+    align-self: flex-start;
+    background-color: #272757; /* AI response uses darker background */
+  }
+  
+  .chat-bubble.user {
+    align-self: flex-end;
+    background-color: #8686AC; /* User query uses a lighter bubble */
+  }
+  
+  
+  
+  
