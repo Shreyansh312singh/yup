@@ -84,9 +84,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import "./CSS/chatbot_page.css"
 
 const ChatBotPage = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get building ID from URL params
   const [building, setBuilding] = useState(null);
   const [realEstate, setRealEstate] = useState(null);
   const [query, setQuery] = useState("");
@@ -177,3 +178,4 @@ const ChatBotPage = () => {
 };
 
 export default ChatBotPage;
+

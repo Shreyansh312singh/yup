@@ -2,6 +2,7 @@ from flask import Flask,request,jsonify
 from chtbot import model
 import requests
 from flask_cors import CORS
+from storage import get_session_history, flush
 
 
 app = Flask(__name__)
@@ -51,4 +52,4 @@ def process_request():
 
 
 if __name__ == '__main__':
-    app.run(port=4000) # runs on localhost: 4000
+    app.run(port=4000)  # Runs the app on localhost:4000

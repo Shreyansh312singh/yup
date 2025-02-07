@@ -71,6 +71,21 @@ const HomePage = () => {
     fetchBuildings();
   }, []);
 
+  // Function to handle "Explore" button click and send POST request to /flush
+  const handleExploreClick = async (buildingId) => {
+    try {
+      // Send a POST request to /flush route
+      const response = await axios.post("http://localhost:4000/flush");
+      console.log(response.data); // Log the response for debugging
+
+      // After flushing the store, navigate to the building's detailed page
+      // Redirect to the building's detailed page, similar to how the Link component works
+      window.location.href = `/user/${buildingId}`;
+    } catch (error) {
+      console.error("Error flushing store:", error);
+    }
+  };
+
   return (
     <div className="home-container">
       <h1>Verified Societies</h1>
@@ -85,9 +100,13 @@ const HomePage = () => {
               <p><strong>Address:</strong> {building.address}</p>
 
               <div className="button-container">
-                <Link to={`/user/${building._id}`} className="explore-btn">
+                {/* Explore button, triggers POST request and redirects */}
+                <button
+                  onClick={() => handleExploreClick(building._id)}
+                  className="explore-btn"
+                >
                   Explore
-                </Link>
+                </button>
               </div>
             </div>
           ))

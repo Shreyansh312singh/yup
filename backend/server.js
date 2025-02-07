@@ -273,6 +273,26 @@ app.post("/api/builder-login", async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
+app.get("/llm/:building_id", async (req, res) => {
+  //console.log("hello");
+  const { building_id } = req.params;  // Destructure the building_id from params
+  console.log("hello garg ji");
+  try {
+    console.log("in try")
+      const product = await RealEstate.find({  buildingId: building_id });  // Query by building_id
+      console.log(product);
+
+      if (!product) {
+          return res.status(404).json({ success: false, message: "Building not found" });
+      }
+
+      res.status(200).json({ success: true, data: product });
+  } catch (error) {
+      console.log("Error fetching data: ", error.message);
+      res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
 
 app.use("/api/products",productRoutes);
 app.use("/api/realestate",realestateRoutes);
