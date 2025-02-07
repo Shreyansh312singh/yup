@@ -8,6 +8,7 @@ import llmRoutes from "./routes/llm.routes.js";
 import BuilderSignUp from "./models/builder.model.js"
 import BuilderUpload from "./models/builder1.model.js";
 import ExpertLogin from "./models/expert.js";
+import upload from "./config/multer.js";
 
 
 const app = express();
@@ -19,6 +20,16 @@ dotenv.config();
 
 
 app.use(express.json());
+
+//  Cache Control Middleware (Add here)
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  res.set('Surrogate-Control', 'no-store');
+  next();
+});
+
 
 app.get("/builder-upload", async (req, res) => {
   try {
@@ -94,19 +105,87 @@ app.get("/builder/:id", async (req, res) => {
 });
 
 
+app.post("/builder-upload", upload.single("image"), async (req, res) => {
+  try {
+    const {
+      email,
+      contactNumber,
+      address,
+      society_name,
+      description,
+      perSquareFootPrice,
+      totalArea,
+      constructionYear,
+      propertyAge,
+      amenities,
+      builderName,
+      verify,
+      termsAccepted,
+      price2BHK,
+      price3BHK,
+      latitude,
+      longitude,
+    } = req.body;
 
-
-
-app.post("/builder-upload", async (req, res) => {
-    try {
-      const builderData = req.body; // Get data from the form
-      const newBuilder = new BuilderUpload(builderData);
-      await newBuilder.save();
-      res.status(201).json({ message: "Builder data uploaded successfully!" });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
+    if (!email || !contactNumber || !address || !society_name || !description || !latitude || !longitude) {
+      return res.status(400).json({ error: "Required fields are missing." });
     }
+
+    const newUpload = new BuilderUpload({
+      email,
+      contactNumber,
+      address,
+      society_name,
+      description,
+      image: req.file ? req.file.path : "", // Store Cloudinary URL
+      perSquareFootPrice,
+      totalArea,
+      constructionYear,
+      propertyAge,
+      amenities,
+      builderName,
+      verify,
+      termsAccepted,
+      price2BHK,
+      price3BHK,
+      latitude,
+      longitude,
+    });
+
+    await newUpload.save();
+    res.status(201).json({ message: "Builder details uploaded successfully.", data: newUpload });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error." });
+  }
 });
+
+
+
+// app.post("/builder-upload", upload.single('image'), async (req, res) => {
+//     try {
+//       const { email, contactNumber, address, society_name, description, termsAccepted } = req.body;
+//     
+
+//     const newBuilder = new BuilderUpload({
+//       email,
+//       contactNumber,
+//       address,
+//       society_name,
+//       description,
+//       image: imageUrl,
+//       termsAccepted,
+//     });
+
+//     await newBuilder.save();
+//       res.status(201).json({ message: "Builder data uploaded successfully!" });
+//     } catch (error) {
+//       res.status(400).json({ error: error.message });
+//     }
+// });
+
+
+
 
 
 app.post("/api/builder-signup", async (req, res) => {

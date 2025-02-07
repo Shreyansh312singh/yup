@@ -16,20 +16,9 @@ const UpdatedRealEstateSchema = new mongoose.Schema(
             required: true,
             description: "The 1-year return rate of the property."
         },
-        x_coordinate: {
+        builder_rating:{
             type: Number,
             required: true,
-            description: "The X coordinate of the property location (for mapping)."
-        },
-        y_coordinate: {
-            type: Number,
-            required: true,
-            description: "The Y coordinate of the property location (for mapping)."
-        },
-        property_age: {
-            type: Number,
-            required: true,
-            description: "The age of the property in years."
         },
         area_dev_rate: {
             type: Number,
@@ -39,11 +28,6 @@ const UpdatedRealEstateSchema = new mongoose.Schema(
                 message: 'Area development rate must be a positive number.'
             },
             description: "The area development rate of the project."
-        },
-        square_foot_price: {
-            type: Number,
-            required: true,
-            description: "Price per square foot of the property."
         },
         facilities_rate: {
             type: Number,

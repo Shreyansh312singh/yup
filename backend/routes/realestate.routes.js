@@ -28,6 +28,22 @@ router.get("/:id",async(req,res)=>{
     }
 });
 
+router.get("/build/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const product = await RealEstate.findOne({ buildingId: id }); // Query using building_id instead of _id
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Building not found" });
+        }
+        res.status(200).json({ success: true, data: product });
+    } catch (error) {
+        console.log("Error fetching data:", error.message);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
+
+
+
 router.post("/", async(req,res) =>{
     const product = req.body;
     console.log(product);
@@ -37,11 +53,8 @@ router.post("/", async(req,res) =>{
         !product.buildingId || // Match with frontend (buildingId)
         !product.five_year_return ||
         !product.one_year_return ||
-        !product.x_coordinate ||
-        !product.y_coordinate ||
-        !product.property_age ||
+        !product.builder_rating ||
         !product.area_dev_rate ||
-        !product.square_foot_price ||
         !product.facilities_rate
     ) {
         return res.status(400).json({ message: "All fields are required." });

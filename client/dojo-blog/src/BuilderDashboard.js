@@ -1,3 +1,82 @@
+// import React, { useEffect, useState } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
+// import "./CSS/BuilderDashBoard.css";
+
+// const BuilderDashboard = () => {
+//   const { email } = useParams();
+//   const navigate = useNavigate();
+//   const [profile, setProfile] = useState(null);
+//   const [buildings, setBuildings] = useState([]);
+
+//   useEffect(() => {
+//     fetch(`http://localhost:5000/api/builder-signup/${email}`)
+//       .then((res) => res.json())
+//       .then((data) => setProfile(data))
+//       .catch((err) => console.error("Error fetching profile:", err));
+
+//       fetch(`http://localhost:5000/builder-upload/${email}`)
+//       .then((res) => res.json())
+//       .then((data) => {
+//           console.log("Fetched buildings:", data);
+//           setBuildings(Array.isArray(data) ? data : []);
+//       })
+//       .catch((err) => console.error("Error fetching buildings:", err));
+  
+//   }, [email]);
+
+//   const handleUploadClick = () => {
+//     navigate(`/builder-upload?email=${email}`);
+//   };
+
+//   return (
+//     <div className="dashboard-container">
+//       <div className="profile-section">
+//         <h2>Builder Profile</h2>
+//         {profile ? (
+//           <div>
+//             <p><strong>Name:</strong> {profile.builderName}</p>
+//             <p><strong>Company:</strong> {profile.companyName}</p>
+//             <p><strong>Email:</strong> {profile.email}</p>
+//             <p><strong>Contact:</strong> {profile.contactNumber}</p>
+//           </div>
+//         ) : (
+//           <p>Loading profile...</p>
+//         )}
+//       </div>
+      
+//       <div className="buildings-section">
+//         <h2>Uploaded Buildings</h2>
+//         {buildings.length > 0 ? (
+//           buildings.map((building, index) => (
+//             <div key={index} className="building-card">
+//               <p><strong>Email:</strong> {building.email}</p>
+//               <p><strong>Contact:</strong> {building.contactNumber}</p>
+//               <p><strong>Address:</strong> {building.address}</p>
+//               <p><strong>Society Name:</strong> {building.society_name}</p>
+//               <p><strong>Description:</strong> {building.description}</p>
+//               <p>
+//                 <strong>Verification Status:</strong> 
+//                 <span className={building.verify ? "verified" : "pending"}>
+//                   {building.verify ? "Confirmed" : "Pending"}
+//                 </span>
+//               </p>
+//               <img src={building.image} alt="Building" className="building-image" />
+//             </div>
+//           ))
+//         ) : (
+//           <p>No buildings uploaded yet.</p>
+//         )}
+//       </div>
+
+//       <button className="upload-button" onClick={handleUploadClick}>
+//         Upload Building
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default BuilderDashboard;
+
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./CSS/BuilderDashBoard.css";
@@ -8,24 +87,54 @@ const BuilderDashboard = () => {
   const [profile, setProfile] = useState(null);
   const [buildings, setBuildings] = useState([]);
 
+  // ✅ Check Authentication and Prevent Back Navigation
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+
+    // 🔒 Redirect to login if not authenticated
+    if (!isAuthenticated) {
+      navigate("/builder-login");
+    }
+
+    // 🚫 Prevent back button after logout
+    window.history.pushState(null, "", window.location.href);
+    const handlePopState = () => {
+      navigate("/builder-login");
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [navigate]);
+
+  // ✅ Fetch Profile and Building Data
   useEffect(() => {
     fetch(`http://localhost:5000/api/builder-signup/${email}`)
       .then((res) => res.json())
       .then((data) => setProfile(data))
       .catch((err) => console.error("Error fetching profile:", err));
 
-      fetch(`http://localhost:5000/builder-upload/${email}`)
+    fetch(`http://localhost:5000/builder-upload/${email}`)
       .then((res) => res.json())
       .then((data) => {
-          console.log("Fetched buildings:", data);
-          setBuildings(Array.isArray(data) ? data : []);
+        console.log("Fetched buildings:", data);
+        setBuildings(Array.isArray(data) ? data : []);
       })
       .catch((err) => console.error("Error fetching buildings:", err));
-  
   }, [email]);
 
+  // ✅ Handle Upload Button Click
   const handleUploadClick = () => {
     navigate(`/builder-upload?email=${email}`);
+  };
+
+  // ✅ Handle Logout
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated"); // Clear session
+    localStorage.removeItem("builderEmail");
+    navigate("/builder-login"); // Redirect to login
   };
 
   return (
@@ -43,7 +152,7 @@ const BuilderDashboard = () => {
           <p>Loading profile...</p>
         )}
       </div>
-      
+
       <div className="buildings-section">
         <h2>Uploaded Buildings</h2>
         {buildings.length > 0 ? (
@@ -70,6 +179,11 @@ const BuilderDashboard = () => {
 
       <button className="upload-button" onClick={handleUploadClick}>
         Upload Building
+      </button>
+
+      {/* 🚪 Logout Button */}
+      <button className="logout-button" onClick={handleLogout}>
+        Logout
       </button>
     </div>
   );

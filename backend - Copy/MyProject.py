@@ -15,7 +15,6 @@ ann_model = tf.models.load_model("my_ann_model.h5")
 
 print(ann_model)
 
-
 llm = ChatGroq(api_key=groq_api_key, model_name = "Llama3-8b-8192")
 
 def preprocess_input(query):
